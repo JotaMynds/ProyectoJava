@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class principal extends JFrame {
+public class Principall extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -22,7 +22,7 @@ public class principal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					principal frame = new principal();
+					Principall frame = new Principall();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +34,7 @@ public class principal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public principal() {
+	public Principall() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 447, 328);
 		contentPane = new JPanel();
@@ -57,6 +57,16 @@ public class principal extends JFrame {
 		});
 		btnNewButton.setBounds(68, 78, 288, 23);
 		contentPane.add(btnNewButton);
+		
+		JButton btnLEER = new JButton("LEER FUTBOLERO");
+		btnLEER.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Formulario_Leer V2 = new Formulario_Leer();
+				V2.setVisible(true);
+			}
+		});
+		btnLEER.setBounds(68, 124, 288, 23);
+		contentPane.add(btnLEER);
 	}
 
 }

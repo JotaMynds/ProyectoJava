@@ -78,6 +78,7 @@ public class Formulario_Insertar extends JFrame {
 					String sentencia = "INSERT INTO futbolista (Nombre, Edad) VALUES ('" + FieldNombre.getText() + "' ," +  FieldEdad.getText() + ")";
 					conexion.ejecutarInsertDeleteUpdate(sentencia);
 					conexion.desconectar();
+					dispose();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
