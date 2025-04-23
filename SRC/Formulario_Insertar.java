@@ -10,6 +10,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class Formulario_Insertar extends JFrame {
@@ -71,7 +72,15 @@ public class Formulario_Insertar extends JFrame {
 		BtnValida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				
+				ConexionMySQL conexion = new ConexionMySQL("root", "", "futbol");
+				try {
+					conexion.conectar();
+					String sentencia = "INSERT INTO futbolista (Nombre, Edad) VALUES ('" + FieldNombre.getText() + "' ," +  FieldEdad.getText() + ")";
+					conexion.ejecutarInsertDeleteUpdate(sentencia);
+					conexion.desconectar();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		BtnValida.setBounds(162, 175, 96, 23);
