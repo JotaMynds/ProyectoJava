@@ -4,10 +4,14 @@
 ## HERRAMIENTAS
 
 - Eclipse:
+
   \ JUnit
   \ JFrame
+
 - Xampp:
+
   \ phpMyAdmin
+
 - Git / GitHub
 - ORACLE DATABASE
 
