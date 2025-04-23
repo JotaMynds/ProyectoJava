@@ -1,6 +1,9 @@
-# ProyectoJava
-# PROGRAMA PARA PEDIR EN UN RESTAURANTE
-
+# ProyectoJava 
+## PROGRAMA PARA PEDIR EN UN RESTAURANTE
+###AUTORES: 
+- IVÁN SÁNCHEZ JUÁREZ
+- MIGUEL ÁNGEL PÉREZ
+  
 ## HERRAMIENTAS:
 
 - Eclipse:
@@ -93,4 +96,3 @@ Se documentarán los cambios según las consultas erróneas y su solución
 ### JUnit
 
 Se documentarán las pruebas y se confirmará su correcto funcionamiento 
-
