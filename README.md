@@ -65,7 +65,9 @@ Se le hacen tests JUnit a los códigos realizados en java para la comprobación 
 Se creará un paquete con JFrame en la que se diseñará la interfaz de inicio de sesión
 
 Código: el usuario deberá iniciar sesión introduciendo los datos de su nombre y el número de mesa donde está.
+
 BBDD: el usuario introduce los datos al iniciar sesión, estos se guardarán para realizar la entrega de la comanda
+
 JUnit: ***PENDIENTE DE DESARROLLO***
 
 ### PEDIDO (PACKAGE N2):
@@ -74,7 +76,9 @@ Se creará una interfaz donde el usuario tendrá la(s) carta(s) del restaurante 
 para hacer el pedido deberán ir seleccionando los ids de los productos para posteriormente realizar el pedido.
 
 Código: el usuario deberá introducir el número del producto para que este se añada al pedido, de tal forma se apunta en la comanda y se hace el cálculo del precio
+
 BBDD: en el pedido, a la hora de poner los ids de los productos, se accede a la tabla que los contiene, una vez termiando el pedido, este se almacena en la tabla de pedidos para gestionarlos
+
 JUnit: ***PENDIENTE DE DESARROLLO***
 
 ### PAGO ( PACKAGE N3):
@@ -82,7 +86,9 @@ JUnit: ***PENDIENTE DE DESARROLLO***
 Se creará una interfaz en la que el usuario, una vez termina de seleccionar los productos, se dirige al pago, en el cual deberá introducir, de forma segura los datos de una tarjeta de crédito o pago por bizum
 
 Código: el usuario debe introducir el numero de la tarjeta, la fecha de expiración y el código CVC para el pago, como caso alternativo, introducir el numero de teléfono para el bizum.
+
 BBDD: una vez pagado el pedido, en la tabla de pedidos, el estado del pedido pasa a 'confirmado' para dar a entender que ya está finalizado y se puede eliminar de la tabla de pedidos puesto que ya ha sido realizado y pagado con éxito.
+
 JUnit: ***PENDIENTE DE DESARROLLO***
 
 ## ERRORES Y COMPLICACIONES
