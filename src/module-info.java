@@ -5,6 +5,6 @@
  * 
  */
 module ProyectoJava {
-	requires java.sql;
 	requires java.desktop;
+	requires java.sql;
 }

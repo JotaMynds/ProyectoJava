@@ -50,7 +50,7 @@ public class Formulario_Insertar extends JFrame {
 		
 		JLabel lblFUTBOLISTA = new JLabel("AÑADIR FUTBOLISTA");
 		lblFUTBOLISTA.setFont(new Font("Arial", Font.BOLD, 25));
-		lblFUTBOLISTA.setBounds(55, 22, 369, 52);
+		lblFUTBOLISTA.setBounds(65, 23, 369, 52);
 		contentPane.add(lblFUTBOLISTA);
 		
 		JLabel lblEdad = new JLabel("EDAD");
