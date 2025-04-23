@@ -1,4 +1,4 @@
-package EJEMPLOS;
+package DATOS_CONEXION;
 
 import java.sql.SQLException;
 
