@@ -36,7 +36,7 @@ public class Principall extends JFrame {
 	 */
 	public Principall() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 447, 328);
+		setBounds(100, 100, 446, 329);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
