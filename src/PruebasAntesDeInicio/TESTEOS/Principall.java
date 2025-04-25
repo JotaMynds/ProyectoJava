@@ -1,4 +1,4 @@
-package DATOS_CONEXION;
+package PruebasAntesDeInicio.TESTEOS;
 
 import java.awt.EventQueue;
 
