@@ -1,4 +1,4 @@
-package DATOS_CONEXION;
+package PruebasAntesDeInicio.PruebasLocal;
 
 import java.sql.SQLException;
 

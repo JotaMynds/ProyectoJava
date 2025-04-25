@@ -1,4 +1,5 @@
-package DATOS_CONEXION;
+package PruebasAntesDeInicio.PruebasLocal;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,24 +10,22 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 /**
- * Clase para la conexión con una base de datos Oracle
- * 
+ * Clase para la conexión con una base de datos MySQL
+ *
  * @author Francisco Jesús Delgado Almirón
  */
-public class ConexionOracle {
+public class ConexionMySQL {
 
-    // Nombre del servicio de Oracle
-    private String SERVICE_NAME;
+    // Base de datos a la que nos conectamos
+    private String BD;
     // Usuario de la base de datos
     private String USUARIO;
     // Contraseña del usuario de la base de datos
     private String PASS;
     // Objeto donde se almacenará nuestra conexión
     private Connection connection;
-    // Host de la base de datos
+    // Indica que está en localhost
     private String HOST;
-    // Puerto de conexión
-    private int PORT;
     // Zona horaria
     private TimeZone zonahoraria;
 
@@ -35,27 +34,26 @@ public class ConexionOracle {
      *
      * @param usuario Usuario de la base de datos
      * @param pass Contraseña del usuario
-     * @param serviceName Nombre del servicio de Oracle
+     * @param bd Base de datos a la que nos conectamos
      */
-    public ConexionOracle(String usuario, String pass, String serviceName) {
+    public ConexionMySQL(String usuario, String pass, String bd) {
         HOST = "localhost";
-        PORT = 1521;
         USUARIO = usuario;
         PASS = pass;
-        SERVICE_NAME = serviceName;
+        BD = bd;
         connection = null;
     }
 
     /**
-     * Comprueba que el driver de Oracle esté correctamente integrado
+     * Comprueba que el driver de MySQL esté correctamente integrado
      *
      * @throws SQLException Se lanzará cuando haya un fallo con la base de datos
      */
     private void registrarDriver() throws SQLException {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            throw new SQLException("Error al registrar el driver de Oracle: " + e.getMessage());
+            throw new SQLException("Error al conectar con MySQL: " + e.getMessage());
         }
     }
 
@@ -67,10 +65,12 @@ public class ConexionOracle {
     public void conectar() throws SQLException {
         if (connection == null || connection.isClosed()) {
             registrarDriver();
+            // Obtengo la zona horaria
             Calendar now = Calendar.getInstance();
             zonahoraria = now.getTimeZone();
-            String url = "jdbc:oracle:thin:@//" + HOST + ":" + PORT + "/" + SERVICE_NAME;
-            connection = DriverManager.getConnection(url, USUARIO, PASS);
+            connection = (Connection) DriverManager.getConnection("jdbc:mysql://" + HOST + "/" + BD + "?user="
+                    + USUARIO + "&password=" + PASS + "&useLegacyDatetimeCode=false&serverTimezone="
+                    + zonahoraria.getID());
         }
     }
 
@@ -79,11 +79,11 @@ public class ConexionOracle {
      *
      * @throws SQLException Se lanzará cuando haya un fallo con la base de datos
      */
-    public void desconectar() throws SQLException {
+   public void desconectar() throws SQLException {
         if (connection != null && !connection.isClosed()) {
             connection.close();
         }
-    }
+   }
 
     /**
      * Ejecuta una consulta SELECT
