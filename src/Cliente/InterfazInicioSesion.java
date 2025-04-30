@@ -38,13 +38,7 @@ public class InterfazInicioSesion extends JFrame {
 		setTitle("BRASAS APP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 487, 367);
-		
-		//
-		
 		setUndecorated(true);
-		
-		// REDIRECCIONAR LA APERTURA DE LA PESTAÑA
-
 		setLocationRelativeTo(null);
 				
 		// BARRA DE MENU
@@ -172,34 +166,33 @@ public class InterfazInicioSesion extends JFrame {
 
                 try {
                   
-                   // CONEXION A LA BASE DE DATOS
-                    conexion.conectar();
+                	// CONEXION A LA BASE DE DATOS
+                    
+                	conexion.conectar();
 
-                    // 3. Crear la sentencia SQL
-                    String nombre = nombreField.getText().replace("", "\\"); 
-                    String mesa = (String) comboBox.getSelectedItem();
-                    String sql = "INSERT INTO clientes (nombre, mesa) VALUES ('" + nombre + "', '" + mesa + "')";
+                    // SENTENCIA SQL
+                    
+                    String sentencia = "INSERT INTO Datos_prueba (nombre, mesa) VALUES(nombreField , JComboBox.getText())"; //EDITAR SENTENCIA	
+        			conexion.ejecutarInsertDeleteUpdate(sentencia);
+        			conexion.desconectar();
 
-                    // 4. Ejecutar la sentencia
-                    int filasAfectadas = conexion.ejecutarInsertDeleteUpdate(sql);
-                    JOptionPane.showMessageDialog(null, "Datos guardados: " + filasAfectadas + " fila(s) afectada(s)");
-
-                    // 5. Transición a la siguiente ventana
-                    InterfazCargaRealizarPedido a = new InterfazCargaRealizarPedido();
+                    // SIGUIENTE PANTALLA
+                    
+        			InterfazCargaRealizarPedido a = new InterfazCargaRealizarPedido();
                     a.setVisible(true);
                     dispose();
 
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Error en la base de datos: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "Error en la base de datos: " + ex.getMessage()); // MUESTRA MENSAJE POR ERROR OCASIONADO
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage()); // MUESTRA MENSAJE POR ERROR OCASIONADO
                 } finally {
-                    // 6. Desconectar
+                    // DESCONECTAR BASE DE DATOS
                     if (conexion != null) {
                         try {
                             conexion.desconectar();
                         } catch (SQLException ex) {
-                            JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.getMessage());
+                            JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.getMessage()); // MUESTRA MENSAJE POR ERROR OCASIONADO
                         }
                     }
                 }
@@ -236,56 +229,13 @@ public class InterfazInicioSesion extends JFrame {
 		JLabel lblPedir = new JLabel("Realiza tu pedido");
 		menuBar_1_1.add(lblPedir);
 		lblPedir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		// ESPACIADO
-
-		JLabel lblEspacio_1 = new JLabel("            ");
-		menuBar_1_1.add(lblEspacio_1);
-
-		JLabel lblEspacio_5_3 = new JLabel("            ");
-		menuBar_1_1.add(lblEspacio_5_3);
-
-		// CLICKABLE DE PAGAR PEDIDO
-
-		JLabel lblPagar = new JLabel("Paga tu pedido");
-		menuBar_1_1.add(lblPagar);
-		lblPagar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		JLabel lblEspacio_5_1 = new JLabel("            ");
-		menuBar_1_1.add(lblEspacio_5_1);
-
-		JLabel lblEspacio_5_2 = new JLabel("            ");
-		menuBar_1_1.add(lblEspacio_5_2);
-		lblPagar.addMouseListener(new MouseAdapter() {
-
-			// MUESTRA MENSAJE DE NAVEGACIÓN
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-
-			}
-
-			// CAMBIAR COLOR
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				lblPagar.setForeground(Color.BLUE);
-			}
-
-			// RESTAURAR COLOR
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				lblPagar.setForeground(Color.BLACK);
-			}
-		});
 		lblPedir.addMouseListener(new MouseAdapter() {
 			@Override
 
 			// MUESTRA MENSAJE DE NAVEGACIÓN
 
 			public void mouseClicked(MouseEvent e) {
-
+				
 			}
 
 			// CAMBIAR COLOR
@@ -302,6 +252,24 @@ public class InterfazInicioSesion extends JFrame {
 				lblPedir.setForeground(Color.BLACK);
 			}
 		});
+		// ESPACIADO
+
+		JLabel lblEspacio_1 = new JLabel("            ");
+		menuBar_1_1.add(lblEspacio_1);
+
+		JLabel lblEspacio_5_3 = new JLabel("            ");
+		menuBar_1_1.add(lblEspacio_5_3);
+
+		// CLICKABLE DE PAGAR PEDIDO
+
+		JLabel lblPagar = new JLabel("Paga tu pedido");
+		menuBar_1_1.add(lblPagar);
+
+		JLabel lblEspacio_5_1 = new JLabel("            ");
+		menuBar_1_1.add(lblEspacio_5_1);
+
+		JLabel lblEspacio_5_2 = new JLabel("            ");
+		menuBar_1_1.add(lblEspacio_5_2);
 	}
 
 	// GRABADOR DE INTERACCIONES CON EL RATÓN

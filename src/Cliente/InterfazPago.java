@@ -43,14 +43,14 @@ public class InterfazPago extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	////////////////////////////////////////////////////////////////////////////////////
+	
 	public InterfazPago() {
 		setTitle("BRASAS APP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 487, 367);
 		setUndecorated(true);
+		setLocationRelativeTo(null);
 
 		// BARRA DE MENU
 
@@ -169,7 +169,7 @@ public class InterfazPago extends JFrame {
 		contentPane.add(lblVISA);
 		
 		JLabel lblPAYPAL = new JLabel("");
-		lblPAYPAL.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\GitHub\\ProyectoJava\\src\\Imagenes\\Paypal.png"));
+		lblPAYPAL.setIcon(new ImageIcon(getClass().getResource("/Imagenes/Paypal.png")));
 		lblPAYPAL.setBounds(235, 244, 95, 32);
 		contentPane.add(lblPAYPAL);
 		
