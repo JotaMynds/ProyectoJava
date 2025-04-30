@@ -12,8 +12,7 @@ public class usardatos {
 			String sentencia = "SELECT * FROM futbolista"; //SENTENCIA
 			conexion.ejecutarInsertDeleteUpdate(sentencia);
 			conexion.desconectar();
-			//dispose(); // en el codigo JFrame funciona
-			
+		
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
