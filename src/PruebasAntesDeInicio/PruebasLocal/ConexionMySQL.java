@@ -23,7 +23,7 @@ public class ConexionMySQL {
     // Contraseña del usuario de la base de datos
     private String PASS;
     // Objeto donde se almacenará nuestra conexión
-    private Connection connection;
+    public static Connection connection;
     // Indica que está en localhost
     private String HOST;
     // Zona horaria

@@ -1,6 +1,5 @@
 package Cliente;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -79,11 +78,11 @@ public class ConexionMySQL {
      *
      * @throws SQLException Se lanzará cuando haya un fallo con la base de datos
      */
-   public void desconectar() throws SQLException {
+    public void desconectar() throws SQLException {
         if (connection != null && !connection.isClosed()) {
             connection.close();
         }
-   }
+    }
 
     /**
      * Ejecuta una consulta SELECT
@@ -95,7 +94,6 @@ public class ConexionMySQL {
     public ResultSet ejecutarSelect(String consulta) throws SQLException {
         Statement stmt = connection.createStatement();
         ResultSet rset = stmt.executeQuery(consulta);
-
         return rset;
     }
 
@@ -109,7 +107,16 @@ public class ConexionMySQL {
     public int ejecutarInsertDeleteUpdate(String consulta) throws SQLException {
         Statement stmt = connection.createStatement();
         int fila = stmt.executeUpdate(consulta);
-
         return fila;
+    }
+    
+    public void close() {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al cerrar la conexión: " + ex.getMessage());
+        }
     }
 }

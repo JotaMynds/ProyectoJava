@@ -51,6 +51,8 @@ public class InterfazPago extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 487, 367);
 		setUndecorated(true);
+		setLocationRelativeTo(null);
+
 
 		// BARRA DE MENU
 

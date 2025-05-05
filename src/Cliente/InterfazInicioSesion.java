@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.*;
@@ -35,6 +36,7 @@ public class InterfazInicioSesion extends JFrame {
 	// INTERFAZ
 
 	public InterfazInicioSesion() {
+		setBackground(new Color(0, 128, 128));
 		setTitle("BRASAS APP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 487, 367);
@@ -50,7 +52,8 @@ public class InterfazInicioSesion extends JFrame {
 		// BARRA DE MENU
 
 		JMenuBar menuBar_1 = new JMenuBar();
-		menuBar_1.setBackground(new Color(255, 255, 255));
+		menuBar_1.setForeground(new Color(0, 128, 128));
+		menuBar_1.setBackground(new Color(0, 128, 128));
 		setJMenuBar(menuBar_1);
 
 		// ARRASTRAR BARRA DE MENÚ
@@ -123,7 +126,7 @@ public class InterfazInicioSesion extends JFrame {
 		// CONFIGURACIÓN DE CONTENTPANE
 
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 255, 255));
+		contentPane.setBackground(new Color(0, 128, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -131,6 +134,8 @@ public class InterfazInicioSesion extends JFrame {
 		// TITULO PÁGINA
 
 		JLabel lblTITULO = new JLabel("¡Localiza tu mesa!");
+		lblTITULO.setBackground(new Color(0, 128, 128));
+		lblTITULO.setForeground(new Color(238, 221, 128));
 		lblTITULO.setFont(new Font("Arial", Font.PLAIN, 25));
 		lblTITULO.setBounds(134, 11, 384, 100);
 		contentPane.add(lblTITULO);
@@ -138,6 +143,7 @@ public class InterfazInicioSesion extends JFrame {
 		// MENSAJE PARA INTRODUCIR NOMBRE
 
 		JLabel lblNOMBRE = new JLabel("Introduce tu nombre:");
+		lblNOMBRE.setForeground(new Color(238, 221, 128));
 		lblNOMBRE.setFont(new Font("Arial", Font.PLAIN, 11));
 		lblNOMBRE.setBounds(86, 108, 176, 14);
 		contentPane.add(lblNOMBRE);
@@ -150,42 +156,68 @@ public class InterfazInicioSesion extends JFrame {
 		// MENSAJE PARA INTRODUCIR EL NÚMERO DE LA MESA
 
 		JLabel lblNOMBRE_1 = new JLabel("Introduce el número de tu mesa:");
+		lblNOMBRE_1.setForeground(new Color(238, 221, 128));
 		lblNOMBRE_1.setFont(new Font("Arial", Font.PLAIN, 11));
 		lblNOMBRE_1.setBounds(86, 152, 176, 14);
 		contentPane.add(lblNOMBRE_1);
 
 		// AÑADIR LOS VALORES DEL DESPLEGABLE
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(
-				new DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10" }));
+		JComboBox<Integer> comboBox = new JComboBox<>();
+		comboBox.setModel(new DefaultComboBoxModel<>(new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }));
 		comboBox.setFont(new Font("Arial", Font.PLAIN, 11));
-		comboBox.setBounds(375, 150, 56, 18);
+		comboBox.setBounds(320, 150, 111, 18);
 		contentPane.add(comboBox);
 
 		// BOTÓN CONFIRMAR
 
 		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.setForeground(new Color(238, 221, 128));
 		btnConfirmar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ConexionMySQL conexion = new ConexionMySQL("root", "", "pruebas_local");
+			public void actionPerformed(ActionEvent e) {				
+
+        		ConexionMySQL conexion = new ConexionMySQL("root", "", "pruebas_local");
 
                 try {
-                  
+                	
+
                    // CONEXION A LA BASE DE DATOS
+                	
                     conexion.conectar();
 
-                    // 3. Crear la sentencia SQL
-                    String nombre = nombreField.getText().replace("", "\\"); 
-                    String mesa = (String) comboBox.getSelectedItem();
-                    String sql = "INSERT INTO clientes (nombre, mesa) VALUES ('" + nombre + "', '" + mesa + "')";
-
-                    // 4. Ejecutar la sentencia
-                    int filasAfectadas = conexion.ejecutarInsertDeleteUpdate(sql);
+                    // SENTENCIA
+                    
+                    String nombre = nombreField.getText(); 
+                    int mesa = (int) comboBox.getSelectedItem();
+                    if((nombre.isEmpty() || nombre.length() < 3) && mesa == 0) {
+                        JOptionPane.showMessageDialog(null, "ERROR: El nombre está vacío y no has seleccionado mesa, introduce un nombre de al menos 4 letras y una mesa");
+                    }else if (mesa == 0) {
+                        JOptionPane.showMessageDialog(null, "ERROR: Debes seleccionar una mesa válida.");
+                        return;
+                    }else if (nombre.isEmpty() || nombre.length() < 3) {
+                        JOptionPane.showMessageDialog(null, "ERROR: Debes introducir un nombre válido, un nombre de al menos 4 letras .");
+                        return;
+                    }
+                    
+                 // VERFICAR OCUPACIÓN DE MESA
+                    String consulta = "SELECT mesa FROM clientes WHERE mesa = ?";
+                    PreparedStatement sql1 = ConexionMySQL.connection.prepareStatement(consulta);
+                    sql1.setInt(1, mesa);
+                    ResultSet mesaAfectada = sql1.executeQuery();
+                    if (mesaAfectada.next()) {
+                        JOptionPane.showMessageDialog(null, "ERROR: Esta mesa está ocupada.");
+                        return;
+                    }
+                    
+                    // REALIZAR SENTENCIA
+                    
+                    String sql2 = "INSERT INTO clientes (nombre, mesa) VALUES ('" + nombre + "', '" + mesa + "')";
+                    int filasAfectadas = conexion.ejecutarInsertDeleteUpdate(sql2);
                     JOptionPane.showMessageDialog(null, "Datos guardados: " + filasAfectadas + " fila(s) afectada(s)");
 
-                    // 5. Transición a la siguiente ventana
-                    InterfazCargaRealizarPedido a = new InterfazCargaRealizarPedido();
+                    //TRANSICIÓN A LA SIGUIENTE VENTANA
+                    
+                    InterfazCargaCarta a = new InterfazCargaCarta();
                     a.setVisible(true);
                     dispose();
 
@@ -194,7 +226,7 @@ public class InterfazInicioSesion extends JFrame {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
                 } finally {
-                    // 6. Desconectar
+                    //DESCONECTAR
                     if (conexion != null) {
                         try {
                             conexion.desconectar();
@@ -205,12 +237,13 @@ public class InterfazInicioSesion extends JFrame {
                 }
 			}
 		});
-		btnConfirmar.setBackground(UIManager.getColor("CheckBox.light"));
+		btnConfirmar.setBackground(new Color(0, 128, 128));
 		btnConfirmar.setBounds(188, 215, 111, 23);
 		contentPane.add(btnConfirmar);
 
 		JMenuBar menuBar_1_1 = new JMenuBar();
-		menuBar_1_1.setBackground(Color.WHITE);
+		menuBar_1_1.setForeground(new Color(0, 128, 128));
+		menuBar_1_1.setBackground(new Color(0, 128, 128));
 		menuBar_1_1.setBounds(0, 0, 540, 25);
 		contentPane.add(menuBar_1_1);
 
@@ -258,51 +291,6 @@ public class InterfazInicioSesion extends JFrame {
 		menuBar_1_1.add(lblEspacio_5_2);
 		lblPagar.addMouseListener(new MouseAdapter() {
 
-			// MUESTRA MENSAJE DE NAVEGACIÓN
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-
-			}
-
-			// CAMBIAR COLOR
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				lblPagar.setForeground(Color.BLUE);
-			}
-
-			// RESTAURAR COLOR
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				lblPagar.setForeground(Color.BLACK);
-			}
-		});
-		lblPedir.addMouseListener(new MouseAdapter() {
-			@Override
-
-			// MUESTRA MENSAJE DE NAVEGACIÓN
-
-			public void mouseClicked(MouseEvent e) {
-
-			}
-
-			// CAMBIAR COLOR
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				lblPedir.setForeground(Color.BLUE);
-			}
-
-			// RESTAURAR COLOR
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				lblPedir.setForeground(Color.BLACK);
-			}
-		});
-	}
 
 	// GRABADOR DE INTERACCIONES CON EL RATÓN
 
@@ -324,5 +312,7 @@ public class InterfazInicioSesion extends JFrame {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
+	}
+	});
 	}
 }

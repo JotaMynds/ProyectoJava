@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 
 import Cliente.InterfazPago;
 
-public class InterfazCargaRealizarPedido extends JFrame {
+public class InterfazCargaCarta extends JFrame {
 
 	// VARIABLES
 
@@ -18,7 +18,7 @@ public class InterfazCargaRealizarPedido extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			try {
-				InterfazCargaRealizarPedido frame = new InterfazCargaRealizarPedido();
+				InterfazCargaCarta frame = new InterfazCargaCarta();
 				frame.setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -29,7 +29,7 @@ public class InterfazCargaRealizarPedido extends JFrame {
 
 	// INTERFAZ
 
-	public InterfazCargaRealizarPedido() {
+	public InterfazCargaCarta() {
 		setTitle("BRASAS APP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 267, 151);
@@ -111,7 +111,7 @@ public class InterfazCargaRealizarPedido extends JFrame {
 		// CONFIGURAR BARRA DE PROGRESO
 
 		JProgressBar BarraCarga = new JProgressBar();
-		BarraCarga.setBounds(37, 54, 177, 20);
+		BarraCarga.setBounds(37, 54, 152, 20);
 		BarraCarga.setMinimum(0);
 		BarraCarga.setMaximum(100);
 
@@ -120,7 +120,7 @@ public class InterfazCargaRealizarPedido extends JFrame {
 		BarraCarga.setStringPainted(true);
 		contentPane.add(BarraCarga);
 
-		JLabel lblCargando = new JLabel("Cargando pantalla de pedido...");
+		JLabel lblCargando = new JLabel("Cargando carta...");
 		lblCargando.setForeground(new Color(238, 221, 128));
 		lblCargando.setBackground(new Color(0, 128, 128));
 		lblCargando.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -148,7 +148,7 @@ public class InterfazCargaRealizarPedido extends JFrame {
 				((Timer) e.getSource()).stop();
 
 				// MOSTRAR NUEVA PÁGINA
-				InterfazPago pago = new InterfazPago();
+				Carta carta = new Carta();
 				pago.setVisible(true);
 
 				// CERRAR LA PESTAÑA
