@@ -1,13 +1,14 @@
-package Cliente;
+package Inicial;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import Cliente.InterfazInicioSesion;
 import Cliente.InterfazPago;
 
-public class InterfazCargaCarta extends JFrame {
+public class InterfazCargaClientes extends JFrame {
 
 	// VARIABLES
 
@@ -18,7 +19,7 @@ public class InterfazCargaCarta extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			try {
-				InterfazCargaCarta frame = new InterfazCargaCarta();
+				InterfazCargaClientes frame = new InterfazCargaClientes();
 				frame.setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -29,7 +30,7 @@ public class InterfazCargaCarta extends JFrame {
 
 	// INTERFAZ
 
-	public InterfazCargaCarta() {
+	public InterfazCargaClientes() {
 		setTitle("BRASAS APP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 267, 151);
@@ -111,7 +112,7 @@ public class InterfazCargaCarta extends JFrame {
 		// CONFIGURAR BARRA DE PROGRESO
 
 		JProgressBar BarraCarga = new JProgressBar();
-		BarraCarga.setBounds(37, 54, 152, 20);
+		BarraCarga.setBounds(37, 54, 177, 20);
 		BarraCarga.setMinimum(0);
 		BarraCarga.setMaximum(100);
 
@@ -120,7 +121,7 @@ public class InterfazCargaCarta extends JFrame {
 		BarraCarga.setStringPainted(true);
 		contentPane.add(BarraCarga);
 
-		JLabel lblCargando = new JLabel("Cargando carta...");
+		JLabel lblCargando = new JLabel("Cargando pantalla clientes...");
 		lblCargando.setForeground(new Color(238, 221, 128));
 		lblCargando.setBackground(new Color(0, 128, 128));
 		lblCargando.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -148,8 +149,8 @@ public class InterfazCargaCarta extends JFrame {
 				((Timer) e.getSource()).stop();
 
 				// MOSTRAR NUEVA PÁGINA
-				//Carta carta = new Carta();
-				//pago.setVisible(true);
+				InterfazInicioSesion a = new InterfazInicioSesion();
+				a.setVisible(true);
 
 				// CERRAR LA PESTAÑA
 

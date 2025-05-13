@@ -40,13 +40,7 @@ public class InterfazInicioSesion extends JFrame {
 		setTitle("BRASAS APP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 487, 367);
-		
-		//
-		
 		setUndecorated(true);
-		
-		// REDIRECCIONAR LA APERTURA DE LA PESTAÑA
-
 		setLocationRelativeTo(null);
 				
 		// BARRA DE MENU
@@ -102,6 +96,7 @@ public class InterfazInicioSesion extends JFrame {
 		menuBar_1.add(lblEspacio_5_13);
 
 		JLabel lblEspacio_5_6_1_1 = new JLabel("BRASAS APP");
+		lblEspacio_5_6_1_1.setForeground(new Color(238, 221, 128));
 		menuBar_1.add(lblEspacio_5_6_1_1);
 
 		JLabel lblEspacio_5_14 = new JLabel("            ");
@@ -213,7 +208,7 @@ public class InterfazInicioSesion extends JFrame {
                     
                     String sql2 = "INSERT INTO clientes (nombre, mesa) VALUES ('" + nombre + "', '" + mesa + "')";
                     int filasAfectadas = conexion.ejecutarInsertDeleteUpdate(sql2);
-                    JOptionPane.showMessageDialog(null, "Datos guardados: " + filasAfectadas + " fila(s) afectada(s)");
+                    //JOptionPane.showMessageDialog(null, "Datos guardados: " + filasAfectadas + " fila(s) afectada(s)");
 
                     //TRANSICIÓN A LA SIGUIENTE VENTANA
                     
@@ -254,6 +249,7 @@ public class InterfazInicioSesion extends JFrame {
 		// MENSAJE DE LOCALIZAR MESA EN MENU
 
 		JLabel lblInicio = new JLabel("Localizar tu mesa");
+		lblInicio.setForeground(new Color(238, 221, 128));
 		menuBar_1_1.add(lblInicio);
 
 		// ESPACIADO
@@ -267,6 +263,7 @@ public class InterfazInicioSesion extends JFrame {
 		// CLICKABLE DE REALIZAR PEDIDO
 
 		JLabel lblPedir = new JLabel("Realiza tu pedido");
+		lblPedir.setForeground(new Color(238, 221, 128));
 		menuBar_1_1.add(lblPedir);
 		lblPedir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
@@ -281,6 +278,7 @@ public class InterfazInicioSesion extends JFrame {
 		// CLICKABLE DE PAGAR PEDIDO
 
 		JLabel lblPagar = new JLabel("Paga tu pedido");
+		lblPagar.setForeground(new Color(238, 221, 128));
 		menuBar_1_1.add(lblPagar);
 		lblPagar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
